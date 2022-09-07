@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from "react";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 // import { uiActions } from './store/ui-slice';
 import Notification from "./components/UI/Notification";
-import { sendCartData } from"./store/cart-actions";
+import { sendCartData, fetchCartData } from "./store/cart-actions";
 
 // prevents loading cart and overwritting existing data
 let isInitial = true;
@@ -15,14 +15,11 @@ function App() {
   const dispatch = useDispatch();
   const showCard = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
-  const notification = useSelector(state => state.ui.notification);
+  const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
-    first
-
-
-  }, [third])
-
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
   useEffect(() => {
     // prevents showing success notification at the start
@@ -31,8 +28,7 @@ function App() {
       return;
     }
 
-    dispatch(sendCartData())
-
+    dispatch(sendCartData());
 
     // const sendCartData = async () => {
     //   // moved to cart-slice.js -> Thunk
@@ -62,13 +58,13 @@ function App() {
     //   );
     // };
 
-  //   sendCartData().catch(error =>{
-  //     dispatch(uiActions.showNotification({
-  //       status: 'error',
-  //       title: 'Error!',
-  //       message: 'Sending cart data failed!'
-  //     }));
-  //   });
+    //   sendCartData().catch(error =>{
+    //     dispatch(uiActions.showNotification({
+    //       status: 'error',
+    //       title: 'Error!',
+    //       message: 'Sending cart data failed!'
+    //     }));
+    //   });
   }, [cart, dispatch]);
 
   return (
@@ -78,7 +74,7 @@ function App() {
           status={notification.status}
           title={notification.title}
           message={notification.message}
-          />
+        />
       )}
       <Layout>
         {showCard && <Cart />}
