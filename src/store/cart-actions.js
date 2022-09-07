@@ -1,12 +1,37 @@
 import { uiActions } from "./ui-slice";
+import { cartActions } from "./cart-slice";
 
 export const fetchCartData = () => {
-  return dispatch => {
+  return async (dispatch) => {
     const fetchData = async () => {
-      const response = await fetch();
+      // GET is default
+      const response = await fetch(
+        "https://udemy-react-21466-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
+      );
+
+      if(!response.ok) {
+        throw new Error('Could not fetch cart data!')
+      }
+
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      const cartData = await fetchData();
+      dispatch(cartActions.replaceCart(cartData));
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Fetching cart data failed!",
+        })
+      )
     }
   };
-}
+};
 
 // action creator Thunk
 export const sendCartData = (cart) => {
@@ -44,11 +69,13 @@ export const sendCartData = (cart) => {
         })
       );
     } catch (error) {
-      dispatch(uiActions.showNotification({
-        status: 'error',
-        title: 'Error!',
-        message: 'Sending cart data failed!'
-      }));
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
     }
   };
 };

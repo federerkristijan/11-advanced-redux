@@ -8,7 +8,7 @@ import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
 import { sendCartData } from"./store/cart-actions";
 
-// to prevent loading cart and overwritting existing data
+// prevents loading cart and overwritting existing data
 let isInitial = true;
 
 function App() {
@@ -16,6 +16,13 @@ function App() {
   const showCard = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
   const notification = useSelector(state => state.ui.notification);
+
+  useEffect(() => {
+    first
+
+
+  }, [third])
+
 
   useEffect(() => {
     // prevents showing success notification at the start
