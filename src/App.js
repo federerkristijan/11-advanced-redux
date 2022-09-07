@@ -6,7 +6,7 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 // import { uiActions } from './store/ui-slice';
 import Notification from "./components/UI/Notification";
-import { sendCartData } from"./store/cart-slice";
+import { sendCartData } from"./store/cart-actions";
 
 // to prevent loading cart and overwritting existing data
 let isInitial = true;
