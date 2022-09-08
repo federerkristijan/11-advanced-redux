@@ -9,8 +9,8 @@ export const fetchCartData = () => {
         "https://udemy-react-21466-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
       );
 
-      if(!response.ok) {
-        throw new Error('Could not fetch cart data!')
+      if (!response.ok) {
+        throw new Error("Could not fetch cart data!");
       }
 
       const data = await response.json();
@@ -28,7 +28,7 @@ export const fetchCartData = () => {
           title: "Error!",
           message: "Fetching cart data failed!",
         })
-      )
+      );
     }
   };
 };
@@ -79,5 +79,3 @@ export const sendCartData = (cart) => {
     }
   };
 };
-
-export const cartActions = cartSlice.actions;
